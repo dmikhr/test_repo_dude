@@ -1,4 +1,4 @@
-class AnswersController < ApplicationController
+class AnswersService < ApplicationController
   include Voted
 
   before_action :authenticate_user!
