@@ -1,4 +1,4 @@
-class DiffRenamed
+class DiffParams
 
   def initialize(params_list1, params_list2, opt= {})
     @params_list1 = params_list1
