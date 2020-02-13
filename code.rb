@@ -1,6 +1,6 @@
-class DiffParams
+class DiffRenamed
 
-  def initialize(params_list1, params_list2)
+  def initialize(params_list1, params_list2, opt= {})
     @params_list1 = params_list1
     @params_list2 = params_list2
     @diff_params = []
@@ -10,7 +10,7 @@ class DiffParams
 
   private
 
-  def compare_params_lists
+  def compare_params_lists(flag, flag2)
     new_params_names,
     removed_params_names,
     unchanged_params_names = items_diff(@params_list1, @params_list2)
@@ -46,8 +46,8 @@ class DiffParams
     @diff1[:methods] << new_methods
     @diff1[:methods] << removed_methods
 
-    remove_empty_methods
-    @diff[:methods].flatten!
+    return 0 if remove_empty_methods
+    return 1 if @diff[:methods].flatten!
   end
 
   # returns hash with method2 params and diff (e.g. args2 - args1)
@@ -64,16 +64,6 @@ class DiffParams
   def items_diff(items1, items2)
     items_names1 = items_names(items1)
     items_names2 = items_names(items2)
-
-    new_items = items_names2 - items_names1
-    removed_items = items_names1 - items_names2
-    unchanged_items = items_names2 - new_items
-
-    [new_items, removed_items, unchanged_items]
-  end
-
-  def items_names1(items)
-    items.select { |item| item[:name] }
   end
 
   def find_item(items, name)
@@ -81,18 +71,8 @@ class DiffParams
     item.first unless item.nil?
   end
 
-  def label_items(items, items_names, label)
-    items_names.map { |item_name| label_item(items, item_name, label) }
-  end
-
-  def process_unchanged_methods(unchanged_methods_names)
-    unchanged_methods_names.each do |method_name|
-      method1 = find_item(@params1[:methods], method_name)
-      method2 = find_item(@params2[:methods], method_name)
-      @diff[:methods] << compare_methods(method1, method2)
-    end
-
-    unchanged_methods = label_items(@params1[:methods], unchanged_methods_names, 0)
+  def new_method(param)
+    puts 'new method'
   end
 
 end
