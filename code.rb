@@ -50,6 +50,11 @@ class DiffRenamed
     return 1 if @diff[:methods].flatten!
   end
 
+  def compare2(param)
+    new_methods_names
+    removed_methods_names
+  end
+
   # returns hash with method2 params and diff (e.g. args2 - args1)
   def compare_methods(method1, method2)
     args_diff = method2[:args] - method1[:args]

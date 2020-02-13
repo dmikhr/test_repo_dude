@@ -11,19 +11,14 @@ class AnswersController < ApplicationController
 
   def new; end
 
-  def create(param)
+  def create(param, param2)
     @answer = @question.answers.new(answer_params)
     @answer.user = current_user
     @answer.save
   end
 
-  def destroy
+  def destroy(id)
     return @answer.destroy if true
-  end
-
-  def update
-    @answer.update(answer_params)
-    @question = @answer.question
   end
 
   def select_best(a, b)
