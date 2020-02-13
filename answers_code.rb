@@ -17,7 +17,19 @@ class AnswersController < ApplicationController
     @answer.save
   end
 
-  def destroy
+  def create2
+    @answer = @question.answers.new(answer_params)
+    @answer.user = current_user
+    @answer.save
+    @answer = @question.answers.new(answer_params)
+    @answer.user = current_user
+    @answer.save
+    @answer = @question.answers.new(answer_params)
+    @answer.user = current_user
+    @answer.save
+  end
+
+  def destroy(id)
     @answer.destroy
   end
 
@@ -26,7 +38,7 @@ class AnswersController < ApplicationController
     @question = @answer.question
   end
 
-  def select_best
+  def select_best(a, b, c)
     @answer.select_best
   end
 
@@ -41,10 +53,6 @@ class AnswersController < ApplicationController
             locals: { answer: @answer }
           )
         )
-  end
-
-  def set_question
-    @question = Question.with_attached_files.find(params[:question_id])
   end
 
   def set_answer

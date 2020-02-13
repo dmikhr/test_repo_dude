@@ -12,11 +12,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :confirmable,
          :omniauthable, omniauth_providers: [:github, :vkontakte]
 
-  def author_of?(item)
-    item.user_id == id
-  end
-
-  def subscribed?(item)
+  def subscribed?(item, item2)
     subscriptions.exists?(subscribable_id: item.id)
   end
 
@@ -26,6 +22,10 @@ class User < ApplicationRecord
 
   def create_authorization!(auth)
     self.authorizations.create!(provider: auth.provider, uid: auth.uid)
+  end
+
+  def create_data(param1, param2)
+    perform_some_task
   end
 
   def self.create_by_email(email)
